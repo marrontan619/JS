@@ -10,21 +10,21 @@ addEventListener("load", function(){
     addEvent(four, "click", fourAlert);
     
     function oneAlert(ev) {
-        alert("one " + ev.srcElement);
+        alert("one  " + ev.srcElement.id);
     }
     
     function twoAlert(ev) {
-        alert("two " + ev.srcElement);
+        alert("two  " + ev.srcElement.id);
     }
     
     function threeAlert(ev) {
 //        ev.preventDefault();
         ev.stopPropagation();
-        alert("three " + ev.srcElement);
+        alert("three  " + ev.srcElement.id);
     }
     
     function fourAlert(ev) {
-        alert("four " + ev.srcElement);
+        alert("four  " + ev.srcElement.id);
     }
     
     function addEvent(obj, ev, fn) {
