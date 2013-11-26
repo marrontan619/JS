@@ -1,0 +1,18 @@
+{
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "name": "OneClickSave",
+    "description": "画像をクリック一回で保存するショートカット",
+    
+    "browser_action": {
+        "default_title": "OneClickSave",
+        "default_popup": "popup.html",
+        "default_icon": {"19": "cat.png"}
+    },
+                         
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "downloads"
+    ]
+}

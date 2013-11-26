@@ -1,0 +1,15 @@
+ul, li {
+    list-style:none;
+    margin:3px auto;
+}
+.dir {
+    font-size:20px;
+    font-weight:bold;
+}
+.page {
+    font-size:15px;
+    font-weight:auto;
+}
+.page a:visited {
+    color:#0000ff;
+}
