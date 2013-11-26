@@ -7,7 +7,16 @@ addEventListener("load", function(){
         document.body.appendChild(bookmarkList);
 
         root.forEach(parse);
-    });
+        
+        var dir = document.querySelectorAll("li.dir");
+        var dirLength = dir.length;
+        for(var i = 0; i < dirLength; i++) {
+            dir[i].addEventListener("click", function(ev) {
+                ev.stopPropagation();
+                this.classList.toggle("hidden"); 
+            });
+        }
+    })
 });
 
 function parse(node) {
@@ -39,7 +48,14 @@ function makeDirTags(node) {
     document.getElementById(node.parentId).appendChild(li);
     //自分の配下を、自分のIDをもたせたulに格納する
     var dir = document.createElement("ul");
+    li.appendChild(dir);
     dir.id = node.id;
-    document.getElementById(node.parentId).appendChild(dir);
+    document.getElementById(node.parentId).appendChild(li);
     node.children.forEach(parse);
+}
+
+function showToggle(elem) {
+    elem.addEventListener("click", function() {
+        elem.classList.toggle("hidden");
+    });
 }

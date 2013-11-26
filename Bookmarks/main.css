@@ -13,3 +13,7 @@ ul, li {
 .page a:visited {
     color:#0000ff;
 }
+
+.hidden ul li {
+    display:none;
+}
