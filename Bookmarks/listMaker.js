@@ -3,9 +3,9 @@ addEventListener("load", function(){
     chrome.bookmarks.getTree(function(root) {
         //ブックマークツリーのルートに当たるタグを作成
         var bookmarkList = document.createElement("ul");
-        bookmarkList.setAttribute("id", root.id);
+        bookmarkList.id = root.id;
         document.body.appendChild(bookmarkList);
-        
+
         root.forEach(parse);
     });
 });
@@ -23,11 +23,10 @@ function parse(node) {
 
 function makePageTag(node) {
     var li = document.createElement("li");
-    li.setAttribute("class", "page");
+    li.classList.add("page");
     var a = document.createElement("a");
-    a.setAttribute("href", node.url);
-    var name = document.createTextNode(node.title);
-    a.appendChild(name);
+    a.href = node.url;
+    a.textContent = node.title;
     li.appendChild(a);
     return li;
 }
@@ -35,13 +34,12 @@ function makePageTag(node) {
 function makeDirTags(node) {
     //ディレクトリ名を持ったli
     var li = document.createElement("li");
-    li.setAttribute("class", "dir");
-    var name = document.createTextNode(node.title);
-    li.appendChild(name);
+    li.classList.add("dir");
+    li.textContent = node.title;
     document.getElementById(node.parentId).appendChild(li);
     //自分の配下を、自分のIDをもたせたulに格納する
     var dir = document.createElement("ul");
-    dir.setAttribute("id", node.id);
+    dir.id = node.id;
     document.getElementById(node.parentId).appendChild(dir);
     node.children.forEach(parse);
 }
