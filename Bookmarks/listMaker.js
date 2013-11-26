@@ -23,7 +23,7 @@ function parse(node) {
 
 function makePageTag(node) {
     var li = document.createElement("li");
-    li.setAttribute("class", "page");
+    li.classList.add("page");
     var a = document.createElement("a");
     a.href = node.url;
     var name = document.createTextNode(node.title);
@@ -35,7 +35,7 @@ function makePageTag(node) {
 function makeDirTags(node) {
     //ディレクトリ名を持ったli
     var li = document.createElement("li");
-    li.setAttribute("class", "dir");
+    li.classList.add("dir");
     var name = document.createTextNode(node.title);
     li.appendChild(name);
     document.getElementById(node.parentId).appendChild(li);
