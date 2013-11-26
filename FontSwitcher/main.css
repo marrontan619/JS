@@ -1,0 +1,11 @@
+button {
+    width:90px;
+    height:auto;
+    border-bottom-width:thin;
+    font-weight:bold;
+}
+li {
+    list-style:none;
+    text-align:center;
+        
+}
