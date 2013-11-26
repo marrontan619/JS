@@ -26,8 +26,7 @@ function makePageTag(node) {
     li.classList.add("page");
     var a = document.createElement("a");
     a.href = node.url;
-    var name = document.createTextNode(node.title);
-    a.appendChild(name);
+    a.textContent = node.title;
     li.appendChild(a);
     return li;
 }
@@ -36,8 +35,7 @@ function makeDirTags(node) {
     //ディレクトリ名を持ったli
     var li = document.createElement("li");
     li.classList.add("dir");
-    var name = document.createTextNode(node.title);
-    li.appendChild(name);
+    li.textContent = node.title;
     document.getElementById(node.parentId).appendChild(li);
     //自分の配下を、自分のIDをもたせたulに格納する
     var dir = document.createElement("ul");
