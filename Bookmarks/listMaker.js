@@ -11,7 +11,9 @@ addEventListener("load", function(){
                         ev.stopPropagation();
                         this.classList.toggle("hidden");
                     });
-                    li.appendChild(parse(currentValue.children));
+                    if (currentValue.children.length) {
+                        li.appendChild(parse(currentValue.children));
+                    }
                 } else {
                     var a = document.createElement("a");
                     a.textContent = currentValue.title;
