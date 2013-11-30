@@ -1,0 +1,20 @@
+{
+    "version": "0.0.1",
+    "manifest_version" : 2,
+    "name": "入力ショートカット",
+    
+    "background": {
+        "scripts": ["contextMenu.js"]
+    },
+    
+    "permissions": [
+        "tabs",
+        "contextMenus",
+        "storage",
+        "http://*/*",
+        "https://*/*"
+    ],
+
+    "options_page": "options.html",
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+}
