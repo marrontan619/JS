@@ -6,7 +6,10 @@ addEventListener("load", function() {
         var checked = this.checked ? "1" : "";
         localStorage.setItem("checked", checked);
         if (checkBox.checked) {
-           chrome.tabs.executeScript(null, {file: "attachDownload.js"});
+            chrome.runtime.onMessage.addListener(function(title) {
+                chrome.downloads.download(localStorage.getItem(title));
+            });
+            chrome.tabs.executeScript(null, {file: "attachDownload.js"});
        }
     });
     
