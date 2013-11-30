@@ -9,7 +9,6 @@ for(var i = 0; i < imgsLength; i++) {
         ev.preventDefault();
         
 //        console.dir(this.title);
-        localStorage.setItem(this.title, this);
-        chrome.runtime.sendMessage(this.title);
+        chrome.runtime.sendMessage(this);
     });
 }
