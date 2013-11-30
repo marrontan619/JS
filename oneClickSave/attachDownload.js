@@ -9,17 +9,16 @@ for(var i = 0; i < imgsLength; i++) {
         
 
         //ここから不明
-        //このブロック内だと、imgs[i]は無効
-        chrome.downloads.download(this.src);
+        chrome.runtime.sendMessage(this);
     });
 }
 
-//保存モードになっていることをわかりやすく
-for(var i = 0; i < imgsLength; i++) {
-    imgs[i].addEventListener("mouseover", function() {
-        var cat = chrome.extension.getURL("cat.png");
-        console.dir(cat);
-        //クォートのなかで変数展開する方法あとで調べる
-//        this.style.cursor = this.src;
-    });
-}
+////保存モードになっていることをわかりやすく
+//for(var i = 0; i < imgsLength; i++) {
+//    imgs[i].addEventListener("mouseover", function() {
+//        var cat = chrome.extension.getURL("cat.png");
+//        console.dir(cat);
+//        //クォートのなかで変数展開する方法あとで調べる
+////        this.style.cursor = this.src;
+//    });
+//}
