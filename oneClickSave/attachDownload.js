@@ -8,7 +8,7 @@ for(var i = 0; i < imgsLength; i++) {
         ev.stopPropagation();
         ev.preventDefault();
         
-//        console.dir(this.title);
-        chrome.runtime.sendMessage(this);
+        console.dir(this.src);
+        chrome.runtime.sendMessage(this.src);
     });
 }
