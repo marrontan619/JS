@@ -8,7 +8,12 @@ for(var i = 0; i < imgsLength; i++) {
         ev.stopPropagation();
         ev.preventDefault();
         
-        console.dir(this.src);
-        chrome.runtime.sendMessage(this.src);
+        var dlTarget = {};
+        dlTarget.url = this.src;
+        dlTarget.filename = (this.title) ? this.title : null;
+        console.dir(dlTarget);
+        chrome.runtime.sendMessage(dlTarget, function(extension, response) {
+            extension.download(response);
+        });
     });
 }
