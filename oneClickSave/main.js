@@ -6,10 +6,9 @@ addEventListener("load", function() {
         var checked = this.checked ? "1" : "";
         localStorage.setItem("checked", checked);
         if (checkBox.checked) {
-            chrome.runtime.onMessage.addListener(function(src) {
-//                console.dir(src);
-                //そもそもJSONやStringではなく、ファイル形式でないとダウンロードできないのでは
-                chrome.downloads.download(JSON.parse(src));
+            chrome.runtime.onMessage.addListener(function(request) {
+                //ポップアップ（の開発者ツールとしてウインドウ）が開いていないと動かないので、要検討
+                chrome.downloads.download(request);
             });
             chrome.tabs.executeScript(null, {file: "attachDownload.js"});
        }
