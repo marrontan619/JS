@@ -1,19 +1,24 @@
 "use strict";
-var imgs = document.querySelectorAll("img");
-var imgsLength = imgs.length;
-
-for(var i = 0; i < imgsLength; i++) {
-    imgs[i].addEventListener("click", function(ev) {
+var attachDownload = function(ev) {
+    if(ev.target.tagName == "IMG"){
         //リンクなどをキャンセル
         ev.stopPropagation();
         ev.preventDefault();
         
-        var dlTarget = {};
-        dlTarget.url = this.src;
-        dlTarget.filename = (this.title) ? this.title : null;
-        console.dir(dlTarget);
-        chrome.runtime.sendMessage(dlTarget, function(extension, response) {
-            extension.download(response);
-        });
-    });
+        //ダウンロード用のオブジェクトを作成して、popupに送る
+        var srcImg = ev.target;
+        var dlTarget = {
+            url : srcImg.src,
+            filename : (srcImg.title) ? srcImg.title : null
+        }
+        chrome.runtime.sendMessage(dlTarget);
+    }
 }
+
+//popup.htmlのチェックボックスの状態を判定できる方法検討中
+//console.dir(localStorage.getItem("checked"));
+//if (Boolean(localStorage.getItem("checked"))) {
+    document.addEventListener("click", attachDownload);
+//} else {
+//    document.removeEventListener("click", attachDownload);
+//}
