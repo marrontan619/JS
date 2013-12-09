@@ -1,0 +1,16 @@
+{
+    "version": "0.0.1",
+    "manifest_version" : 2,
+    "name": "入力ショートカット",
+    
+    "background": {
+        "scripts": ["contextMenu.js"]
+    },
+    
+    "permissions": [
+        "tabs",
+        "contextMenus",
+        "http://*/*",
+        "https://*/*"
+    ]
+}
