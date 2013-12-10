@@ -10,7 +10,10 @@
     "permissions": [
         "tabs",
         "contextMenus",
+        "storage",
         "http://*/*",
         "https://*/*"
-    ]
+    ],
+    
+    "options_page": "options.html"
 }
