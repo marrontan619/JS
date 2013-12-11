@@ -17,18 +17,23 @@ chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 // インストール時に作成
 chrome.runtime.onInstalled.addListener(function() {
-  
-    chrome.contextMenus.create({"title": "氏名", "id": "name", "contexts": ["editable"]});
+    var CreateProperties = function (id, title, parentId) {
+        this.id = id;
+        this.title = title;
+        this.contexts = ["editable"];
+        this.parentId = parentId;
+    };
+    chrome.contextMenus.create(new CreateProperties("name", "名前"));
 // 子要素を入れると、親要素がクリック出来ないので、今のところ凍結
 //  chrome.contextMenus.create(
 //      {"title": "苗字のみ", "parentId": "name", "id": "familyName", "contexts": ["editable"]});
 //  chrome.contextMenus.create(
 //      {"title": "名前のみ", "parentId": "name", "id": "firstName", "contexts": ["editable"]});
 
-    chrome.contextMenus.create({"title": "メールアドレス1", "id": "e_mail_1", "contexts": ["editable"]});
-    chrome.contextMenus.create({"title": "メールアドレス2", "id": "e_mail_2", "contexts": ["editable"]});
-    chrome.contextMenus.create({"title": "住所", "id": "address", "contexts": ["editable"]});
+    chrome.contextMenus.create(new CreateProperties("e_mail_1", "メールアドレス1"));
+    chrome.contextMenus.create(new CreateProperties("e_mail_2", "メールアドレス2"));
+    chrome.contextMenus.create(new CreateProperties("address", "住所"));
 
-    chrome.contextMenus.create({"title": "テンプレート", "id": "template", "contexts": ["editable"]});  
+    chrome.contextMenus.create(new CreateProperties("template", "テンプレート"));
 
 });
