@@ -16,7 +16,7 @@ function onClickHandler(info, tab) {
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 // インストール時に作成
-chrome.runtime.onStartup.addListener(function() {
+chrome.runtime.onInstalled.addListener(function() {
     var CreateProperties = function (id, title, parentId) {
         this.id = id;
         this.title = title;
