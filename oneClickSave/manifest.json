@@ -13,7 +13,6 @@
     //ここからさきはサンプルからなので、あとで調べる
     "permissions": [
         "tabs",
-        "activeTab",
         "downloads",
         "storage",
         "http://*/*",
