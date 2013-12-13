@@ -13,10 +13,16 @@
     //ここからさきはサンプルからなので、あとで調べる
     "permissions": [
         "tabs",
+        "activeTab",
         "downloads",
+        "storage",
         "http://*/*",
         "https://*/*"
     ],
+    
+    "background": {
+        "scripts": ["background.js"]
+    },
     
     "content_security_policy": "script-src 'self'; object-src 'self'"
 }
