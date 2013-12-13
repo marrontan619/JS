@@ -16,7 +16,7 @@ var attachDownload = function(ev) {
 };
 
 chrome.storage.local.get(function(items) {
-    if(Boolean(items["checked"])) {
+    if(items["checked"]) {
         document.addEventListener("click", attachDownload);
         console.dir("attached");
     } else {
