@@ -1,24 +1,20 @@
 "use strict";
-var imgs = document.querySelectorAll("img");
-var imgsLength = imgs.length;
-for(var i = 0; i < imgsLength; i++) {
-    imgs[i].addEventListener("click", function(ev) {
-        //リンクなどをキャンセル
-        ev.stopPropagation();
-        ev.preventDefault();
-        
-
-        //ここから不明
-        chrome.runtime.sendMessage(this);
+addEventListener("load", function() {
+    document.addEventListener("click", function(ev) {
+        chrome.storage.local.get(function(items) {
+            if(items["checked"] && ev.target.tagName == "IMG") {
+                //リンクなどをキャンセル
+                ev.stopPropagation();
+                ev.preventDefault();
+                
+                //ダウンロード用のオブジェクトを作成して、backgrounds.jsに送る
+                var srcImg = ev.target;
+                var dlTarget = {
+                    url : srcImg.src,
+                    filename : (srcImg.title) ? srcImg.title : null
+                };
+                chrome.runtime.sendMessage(dlTarget);
+            }
+        });
     });
-}
-
-////保存モードになっていることをわかりやすく
-//for(var i = 0; i < imgsLength; i++) {
-//    imgs[i].addEventListener("mouseover", function() {
-//        var cat = chrome.extension.getURL("cat.png");
-//        console.dir(cat);
-//        //クォートのなかで変数展開する方法あとで調べる
-////        this.style.cursor = this.src;
-//    });
-//}
+});

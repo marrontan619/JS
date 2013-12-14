@@ -9,10 +9,19 @@
         "default_popup": "popup.html",
         "default_icon": {"19": "cat.png"}
     },
-                         
+    
+    //ここからさきはサンプルからなので、あとで調べる
     "permissions": [
         "tabs",
-        "activeTab",
-        "downloads"
-    ]
+        "downloads",
+        "storage",
+        "http://*/*",
+        "https://*/*"
+    ],
+    
+    "background": {
+        "scripts": ["background.js"]
+    },
+    
+    "content_security_policy": "script-src 'self'; object-src 'self'"
 }

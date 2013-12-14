@@ -1,16 +1,15 @@
 "use strict";
 addEventListener("load", function() {
+    //チェックボックスの状態についての処理
+    var storage = chrome.storage.local;
     var checkBox = document.getElementById("checkBox");
-    checkBox.checked = Boolean(localStorage.getItem("checked"));
+    storage.get(function(items) {
+        checkBox.checked = items["checked"];
+    });
+    //チェックボックスがクリックされたら、ストレージに状態を更新
     checkBox.addEventListener("change", function() {
-        var checked = (this.checked) ? "1" : "";
-        localStorage.setItem("checked", checked);
-        chrome.runtime.onMessage.addListener(function(elem) {
-            chrome.downloads.download(elem);
-        });
-        if(checkBox.checked == true) {
-           chrome.tabs.executeScript(null, {file: "attachDownload.js"});
-       }
+        var checked = this.checked ? true : false;
+        storage.set({"checked": checked});
     });
     
 });
