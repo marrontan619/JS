@@ -10,7 +10,7 @@ $(function() {
         storage.set(item);
     };
     
-    var buttons = $("button.setButton")
+    var buttons = $("button.setButton");
     
     buttons.attr("disabled", true);
     buttons.click(setOption);
