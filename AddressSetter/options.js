@@ -18,7 +18,7 @@ $(function() {
     
     setButtons.attr("disabled", true);
     setButtons.click(setOption);
-    setButtons.prev().bind("input", enableSetButton);
+    $(document).on("input", "input, textarea", enableSetButton);
     
     
     $("button.deleteButton").click(function() {
@@ -34,7 +34,7 @@ $(function() {
         dt.append("：");
         
         var dd = $("<dd/>");
-        $("<input/>").attr("type", "text").attr("id", "id").bind("input", enableSetButton).appendTo(dd);
+        $("<input/>").attr("type", "text").attr("id", "id").appendTo(dd);
         $("<button/>").addClass("setButton").text("設定").attr("disabled", true).appendTo(dd);
         $("<button/>").addClass("deleteButton").text("削除").appendTo(dd);
         
@@ -50,6 +50,6 @@ $(function() {
         var setVal = function() {
             $(this).val(items[contexts[counter++]]);
         };
-        $("button.setButton").prev().each(setVal);
+        setButtons.prev().each(setVal);
     });
 });
