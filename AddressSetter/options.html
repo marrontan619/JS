@@ -11,41 +11,59 @@
 </head>
 <body>
 <dl>
-    <dt>
-        <label for="name">氏名：</label>
-    </dt>
-    <dd>
-        <input type="text" id="name" />
-        <button class="setButton">設定</button>
-    </dd>
-    <dt>
-        <label for="e_mail_1">メールアドレス1：</label>
-    </dt>
-    <dd>
-        <input type="text" id="e_mail_1" />
-        <button class="setButton">設定</button>
-    </dd>
-    <dt>
-        <label for="e_mail_2">メールアドレス2：</label>
-    </dt>
-    <dd>
-        <input type="text" id="e_mail_2" />
-        <button class="setButton">設定</button>
-    </dd>
-    <dt>
-        <label for="address">住所：</label>
-    </dt>
-    <dd>
-        <input type="text" id="address" />
-        <button class="setButton">設定</button>
-    </dd>
-    <dt>
-        <label for="template">テンプレート：</label>
-    </dt>
-    <dd>
-        <textarea id="template"></textarea>
-        <button class="setButton">設定</button>
-    </dd>
+    <div class="itemSet">
+        <dt>
+            <input type="text" value="氏名" />：
+        </dt>
+        <dd>
+            <input type="text" id="name" />
+            <button class="setButton">設定</button>
+            <button class="deleteButton">削除</button>
+        </dd>
+    </div>
+    <div class="itemSet">
+        <dt>
+            <input type="text" value="メールアドレス1" />：
+        </dt>
+        <dd>
+            <input type="text" id="e_mail_1" />
+            <button class="setButton">設定</button>
+            <button class="deleteButton">削除</button>
+        </dd>
+    </div>
+    <div class="itemSet">
+        <dt>
+            <input type="text" value="メールアドレス2" />：
+        </dt>
+        <dd>
+            <input type="text" id="e_mail_2" />
+            <button class="setButton">設定</button>
+            <button class="deleteButton">削除</button>
+        </dd>
+    </div>
+    <div class="itemSet">
+        <dt>
+            <input type="text" value="住所" />：
+        </dt>
+        <dd>
+            <input type="text" id="address" />
+            <button class="setButton">設定</button>
+            <button class="deleteButton">削除</button>
+        </dd>
+    </div>
+    <div class="itemSet">
+        <dt>
+            <input type="text" value="テンプレート" />：
+        </dt>
+        <dd>
+            <textarea id="template"></textarea>
+            <button class="setButton">設定</button>
+            <button class="deleteButton">削除</button>
+        </dd>
+    </div>
 </dl>
+<div class="addButtonRow">
+    <button class="addButton">要素を追加</button>
+</div>
 </body>
 </html>

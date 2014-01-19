@@ -6,9 +6,17 @@ dd {
     padding-left:40px;
     text-align:left;
 }
+dt input {
+    width:120px;
+}
 input[id], textarea[id] {
     width:220px
 }
+/*
 input#name {
     width:100px;
+}
+*/
+div.addButtonRow {
+    text-align:center;
 }
