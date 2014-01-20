@@ -10,46 +10,44 @@ $(function() {
         storage.set(item);
     };
     
-    var enableSetButton = function() {
-        $(this).next().attr("disabled", false);
-    }
-    
-    var setButtons = $("button.setButton");
-    
-    setButtons.attr("disabled", true);
-    setButtons.click(setOption);
-    $(document).on("input", "input, textarea", enableSetButton);
-    
-    
-    $("button.deleteButton").click(function() {
-        $(this).parent().parent().remove();
-    });
-    
     var dl = $("dl");
-    $("button.addButton").click(function() {
+    var createItemSet = function(key, val) {
         var itemSetDiv = $("<div/>").addClass("itemSet");
         
         var dt = $("<dt/>");
-        $("<input/>").attr("type", "text").appendTo(dt);
+        $("<input/>").attr("type", "text").addClass("key").attr("id", key).val(key).appendTo(dt);
         dt.append("：");
         
         var dd = $("<dd/>");
-        $("<input/>").attr("type", "text").attr("id", "id").appendTo(dd);
+        $("<input/>").attr("type", "text").val(val).appendTo(dd);
         $("<button/>").addClass("setButton").text("設定").attr("disabled", true).appendTo(dd);
         $("<button/>").addClass("deleteButton").text("削除").appendTo(dd);
         
         itemSetDiv.append(dt);
         itemSetDiv.append(dd);
         dl.append(itemSetDiv);
-    });
+    };
+    
+    var enableSetButton = function() {
+        $(this).next().attr("disabled", false);
+    };
+    
+    var deleteItem = function() {
+        $(this).parent().parent().remove();
+    };
+    
+    $("button.setButton").attr("disabled", true);
+    $(document).on("input", "input, textarea", enableSetButton);
+    $(document).on("click", "button.setButton", setOption);
+    $(document).on("click", "button.deleteButton", deleteItem);
+    
+    
+    $("button.addButton").click(createItemSet(null, null));
     
     
     storage.get(function(items) {
-        var contexts = ["name", "e_mail_1", "e_mail_2", "address", "template"];
-        var counter = 0;
-        var setVal = function() {
-            $(this).val(items[contexts[counter++]]);
-        };
-        setButtons.prev().each(setVal);
+        jQuery.each(items, function(key, val) {
+            createItemSet(key, val);
+        });
     });
 });

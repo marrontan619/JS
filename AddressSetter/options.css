@@ -9,7 +9,7 @@ dd {
 dt input {
     width:120px;
 }
-input[id], textarea[id] {
+input, textarea[id] {
     width:220px
 }
 /*

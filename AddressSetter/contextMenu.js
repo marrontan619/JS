@@ -13,19 +13,30 @@ function onClickHandler(info, tab) {
   }
 };
 
+chrome.runtime.onInstalled.addListener(function() {
+    var items = {
+        "名前": null,
+        "メールアドレス": null,
+        "メールアドレス2": null,
+        "住所": null,
+        "テンプレート": null
+    };
+    chrome.storage.local.set(items);
+});
+
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
-chrome.runtime.onStartup.addListener(function() {
-    var CreateProperties = function (id, title, parentId) {
-        this.id = id;
-        this.title = title;
-        this.contexts = ["editable"];
-        this.parentId = parentId;
-    };
-    chrome.contextMenus.create(new CreateProperties("name", "名前"));
-    chrome.contextMenus.create(new CreateProperties("e_mail_1", "メールアドレス1"));
-    chrome.contextMenus.create(new CreateProperties("e_mail_2", "メールアドレス2"));
-    chrome.contextMenus.create(new CreateProperties("address", "住所"));
-    chrome.contextMenus.create(new CreateProperties("template", "テンプレート"));
-
-});
+//chrome.runtime.onStartup.addListener(function() {
+//    var CreateProperties = function (id, title, parentId) {
+//        this.id = id;
+//        this.title = title;
+//        this.contexts = ["editable"];
+//        this.parentId = parentId;
+//    };
+//    chrome.contextMenus.create(new CreateProperties("name", "名前"));
+//    chrome.contextMenus.create(new CreateProperties("e_mail_1", "メールアドレス1"));
+//    chrome.contextMenus.create(new CreateProperties("e_mail_2", "メールアドレス2"));
+//    chrome.contextMenus.create(new CreateProperties("address", "住所"));
+//    chrome.contextMenus.create(new CreateProperties("template", "テンプレート"));
+//
+//});
