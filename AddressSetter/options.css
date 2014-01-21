@@ -5,6 +5,7 @@ dt, dd {
 dd {
     padding-left:40px;
     text-align:left;
+    margin-bottom:10px;
 }
 dt input {
     width:120px;
@@ -12,11 +13,9 @@ dt input {
 input, textarea[id] {
     width:220px
 }
-/*
-input#name {
-    width:100px;
+button.setButton, button.deleteButton {
+    margin-left:5px;
 }
-*/
 div.addButtonRow {
     text-align:center;
 }
