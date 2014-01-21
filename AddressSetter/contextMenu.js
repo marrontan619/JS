@@ -15,11 +15,13 @@ function onClickHandler(info, tab) {
 
 chrome.runtime.onInstalled.addListener(function() {
     var items = {
-        "名前": null,
-        "メールアドレス": null,
-        "メールアドレス2": null,
-        "住所": null,
-        "テンプレート": null
+        contextItems: {
+            "名前": "name",
+            "メールアドレス": "mail",
+            "メールアドレス2": "mail2",
+            "住所": "address",
+            "テンプレート": "template"
+        }
     };
     chrome.storage.local.set(items);
 });
