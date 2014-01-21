@@ -1,3 +1,5 @@
+"use strict";
+var storage = chrome.storage.local;
 // アイテムがクリックされた時の動作を登録
 function onClickHandler(info, tab) {
   if (info.menuItemId == "e_mail_1") {
@@ -14,16 +16,20 @@ function onClickHandler(info, tab) {
 };
 
 chrome.runtime.onInstalled.addListener(function() {
-    var items = {
-        contextItems: {
-            "名前": "name",
-            "メールアドレス": "mail",
-            "メールアドレス2": "mail2",
-            "住所": "address",
-            "テンプレート": "template"
+    storage.get(function(items) {
+        if(items["contextItems"] == null) {
+            var items = {
+                "contextItems": {
+                    "名前": "name",
+                    "メールアドレス": "mail",
+                    "メールアドレス2": "mail2",
+                    "住所": "address",
+                    "テンプレート": "template"
+                }
+            };
+            storage.set(items);
         }
-    };
-    chrome.storage.local.set(items);
+    });
 });
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);

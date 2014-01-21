@@ -1,3 +1,4 @@
+"use strict";
 $(function() {
     var storage = chrome.storage.local;
     storage.get(function(items) {
@@ -5,12 +6,10 @@ $(function() {
         
         var setOption = function() {
             $(this).attr("disabled", true);
-            var elem = $(this).prev();
-            var item = {};
-            var id = elem.attr("id");
-            var value = elem.val();
-            item[id] = value;
-            storage.set(item);
+            var key = $(this).parent().prev().children("input:first").val();
+            var val = $(this).prev().val();
+            contextItems[key] = val;
+            storage.set({"contextItems":contextItems});
         };
         
         var dl = $("dl");
@@ -36,7 +35,10 @@ $(function() {
         };
         
         var deleteItem = function() {
-            $(this).parent().parent().remove();
+            var dd = $(this).parent();
+            delete contextItems[dd.prev().children("input:first").attr("id")];
+            storage.set({"contextItems":contextItems});
+            dd.parent().remove();
         };
         
         $("button.setButton").attr("disabled", true);
@@ -45,7 +47,9 @@ $(function() {
         $(document).on("click", "button.deleteButton", deleteItem);
         
         
-        $("button.addButton").click(createItemSet(null, null));
+        $("button.addButton").click(function() {
+            createItemSet(null, null);
+        });
         
         
         jQuery.each(contextItems, function(key, val) {
