@@ -1,5 +1,7 @@
 "use strict";
+var UPDATE_REQUEST = "update_context_menu";
 var storage = chrome.storage.local;
+
 // アイテムがクリックされた時の動作を登録
 function onClickHandler(info, tab) {
   if (info.menuItemId == "e_mail_1") {
@@ -32,15 +34,30 @@ chrome.runtime.onInstalled.addListener(function() {
     });
 });
 
+var createContextMenu = function() {
+    var CreateProperties = function (id) {
+        this.id = id;
+        this.title = id;
+        this.contexts = ["editable"];
+    };
+    
+    storage.get(function(items) {
+        var contextItems = items["contextItems"];
+        for(var key in contextItems) {
+            chrome.contextMenus.create(new CreateProperties(key));
+        }
+    });
+};
+
+chrome.runtime.onMessage.addListener(function(message) {
+    if(message == UPDATE_REQUEST) {
+        createContextMenu();
+    }
+});
+
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 //chrome.runtime.onStartup.addListener(function() {
-//    var CreateProperties = function (id, title, parentId) {
-//        this.id = id;
-//        this.title = title;
-//        this.contexts = ["editable"];
-//        this.parentId = parentId;
-//    };
 //    chrome.contextMenus.create(new CreateProperties("name", "名前"));
 //    chrome.contextMenus.create(new CreateProperties("e_mail_1", "メールアドレス1"));
 //    chrome.contextMenus.create(new CreateProperties("e_mail_2", "メールアドレス2"));

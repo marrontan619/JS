@@ -1,5 +1,6 @@
 "use strict";
 $(function() {
+    var UPDATE_REQUEST = "update_context_menu";
     var storage = chrome.storage.local;
     storage.get(function(items) {
         var contextItems = items["contextItems"];
@@ -10,6 +11,7 @@ $(function() {
             var val = $(this).prev().val();
             contextItems[key] = val;
             storage.set({"contextItems":contextItems});
+            chrome.runtime.sendMessage(UPDATE_REQUEST);
         };
         
         var dl = $("dl");
