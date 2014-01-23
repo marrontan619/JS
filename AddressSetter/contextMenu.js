@@ -22,6 +22,14 @@ var CreateProperties = function (id) {
     this.contexts = ["editable"];
 };
 
+var createContextMenu = function() {
+    storage.get(function(items) {
+        for(var key in items["contextItems"]) {
+            chrome.contextMenus.create(new CreateProperties(key));
+        }
+    });
+};
+
 chrome.runtime.onInstalled.addListener(function() {
     storage.get(function(items) {
         if(items["contextItems"] == null) {
@@ -35,16 +43,14 @@ chrome.runtime.onInstalled.addListener(function() {
                 }
             };
             storage.set(initialItems);
-            for (var key in initialItems["contextItems"]) {
-                chrome.contextMenus.create(new CreateProperties(key));
-            }
+            createContextMenu();
         }
     });
 });
 
 var updateContextMenu = function(request) {
     chrome.contextMenus.remove(request.oldTitle);
-    chrome.contextMenus.create(new CreateProperties(request.newTitle));
+    createContextMenu();
 };
 
 chrome.runtime.onMessage.addListener(function(request) {
