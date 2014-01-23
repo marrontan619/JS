@@ -43,29 +43,22 @@ chrome.runtime.onInstalled.addListener(function() {
                 }
             };
             storage.set(initialItems);
-            createContextMenu();
         }
+        createContextMenu();
     });
 });
 
 var updateContextMenu = function(request) {
-    chrome.contextMenus.remove(request.oldTitle);
+    if (request["oldTitle"] != null) {
+        chrome.contextMenus.remove(request["oldTitle"]);
+    }
     createContextMenu();
 };
 
 chrome.runtime.onMessage.addListener(function(request) {
-    if(request.status == "update") {
+    if (request["status"] == "update") {
         updateContextMenu(request);
     }
 });
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);
-
-//chrome.runtime.onStartup.addListener(function() {
-//    chrome.contextMenus.create(new CreateProperties("name", "名前"));
-//    chrome.contextMenus.create(new CreateProperties("e_mail_1", "メールアドレス1"));
-//    chrome.contextMenus.create(new CreateProperties("e_mail_2", "メールアドレス2"));
-//    chrome.contextMenus.create(new CreateProperties("address", "住所"));
-//    chrome.contextMenus.create(new CreateProperties("template", "テンプレート"));
-//
-//});

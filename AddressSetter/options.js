@@ -5,6 +5,9 @@ $(function() {
     storage.get(function(items) {
         var contextItems = items["contextItems"];
         
+        var sendRequest = function(status) {
+        };
+        
         var setOption = function() {
             $(this).attr("disabled", true);
             var titleBox = $(this).parent().prev().children("input:first");
@@ -12,16 +15,31 @@ $(function() {
             var newTitle = titleBox.val();
             var newVal = $(this).prev().val();
             titleBox.attr("id", newTitle);
-            var request = {
-                status: "update",
-                "oldTitle": oldTitle,
-                "newTitle": newTitle,
-                "newVal": newVal
-            };
-            delete contextItems[oldTitle];
+            if (oldTitle != null) {
+                delete contextItems[oldTitle];
+            }
             contextItems[newTitle] = newVal;
             storage.set({"contextItems":contextItems});
+            var request = {
+                "status": "update",
+                "oldTitle": oldTitle
+            };
             chrome.runtime.sendMessage(request);
+        };
+        
+        var deleteItem = function() {
+            var dd = $(this).parent();
+            var oldTitle = dd.prev().children("input:first").attr("id");
+            if (oldTitle != null) {
+                delete contextItems[oldTitle];
+            }
+            storage.set({"contextItems":contextItems});
+            var request = {
+                "status": "update",
+                "oldTitle": oldTitle
+            };
+            chrome.runtime.sendMessage(request);
+            dd.parent().remove();
         };
         
         var dl = $("dl");
@@ -46,12 +64,6 @@ $(function() {
             $(this).parent().parent().children("dd").children("button.setButton").attr("disabled", false);
         };
         
-        var deleteItem = function() {
-            var dd = $(this).parent();
-            delete contextItems[dd.prev().children("input:first").attr("id")];
-            storage.set({"contextItems":contextItems});
-            dd.parent().remove();
-        };
         
         $("button.setButton").attr("disabled", true);
         $(document).on("input", "input", enableSetButton);
