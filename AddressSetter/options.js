@@ -43,7 +43,7 @@ $(function() {
         };
         
         var enableSetButton = function() {
-            $(this).next().attr("disabled", false);
+            $(this).parent().parent().children("dd").children("button.setButton").attr("disabled", false);
         };
         
         var deleteItem = function() {
@@ -54,7 +54,7 @@ $(function() {
         };
         
         $("button.setButton").attr("disabled", true);
-        $(document).on("input", "input, textarea", enableSetButton);
+        $(document).on("input", "input", enableSetButton);
         $(document).on("click", "button.setButton", setOption);
         $(document).on("click", "button.deleteButton", deleteItem);
         
