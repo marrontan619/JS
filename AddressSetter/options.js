@@ -7,11 +7,21 @@ $(function() {
         
         var setOption = function() {
             $(this).attr("disabled", true);
-            var key = $(this).parent().prev().children("input:first").val();
-            var val = $(this).prev().val();
-            contextItems[key] = val;
+            var titleBox = $(this).parent().prev().children("input:first");
+            var oldTitle = titleBox.attr("id");
+            var newTitle = titleBox.val();
+            var newVal = $(this).prev().val();
+            titleBox.attr("id", newTitle);
+            var request = {
+                status: "update",
+                "oldTitle": oldTitle,
+                "newTitle": newTitle,
+                "newVal": newVal
+            };
+            delete contextItems[oldTitle];
+            contextItems[newTitle] = newVal;
             storage.set({"contextItems":contextItems});
-            chrome.runtime.sendMessage(UPDATE_REQUEST);
+            chrome.runtime.sendMessage(request);
         };
         
         var dl = $("dl");

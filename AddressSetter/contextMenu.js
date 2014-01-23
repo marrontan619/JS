@@ -1,5 +1,4 @@
 "use strict";
-var UPDATE_REQUEST = "update_context_menu";
 var storage = chrome.storage.local;
 
 // アイテムがクリックされた時の動作を登録
@@ -17,10 +16,16 @@ function onClickHandler(info, tab) {
   }
 };
 
+var CreateProperties = function (id) {
+    this.id = id;
+    this.title = id;
+    this.contexts = ["editable"];
+};
+
 chrome.runtime.onInstalled.addListener(function() {
     storage.get(function(items) {
         if(items["contextItems"] == null) {
-            var items = {
+            var initialItems = {
                 "contextItems": {
                     "名前": "name",
                     "メールアドレス": "mail",
@@ -29,29 +34,22 @@ chrome.runtime.onInstalled.addListener(function() {
                     "テンプレート": "template"
                 }
             };
-            storage.set(items);
+            storage.set(initialItems);
+            for (var key in initialItems["contextItems"]) {
+                chrome.contextMenus.create(new CreateProperties(key));
+            }
         }
     });
 });
 
-var createContextMenu = function() {
-    var CreateProperties = function (id) {
-        this.id = id;
-        this.title = id;
-        this.contexts = ["editable"];
-    };
-    
-    storage.get(function(items) {
-        var contextItems = items["contextItems"];
-        for(var key in contextItems) {
-            chrome.contextMenus.create(new CreateProperties(key));
-        }
-    });
+var updateContextMenu = function(request) {
+    chrome.contextMenus.remove(request.oldTitle);
+    chrome.contextMenus.create(new CreateProperties(request.newTitle));
 };
 
-chrome.runtime.onMessage.addListener(function(message) {
-    if(message == UPDATE_REQUEST) {
-        createContextMenu();
+chrome.runtime.onMessage.addListener(function(request) {
+    if(request.status == "update") {
+        updateContextMenu(request);
     }
 });
 
