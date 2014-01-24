@@ -5,40 +5,33 @@ $(function() {
     storage.get(function(items) {
         var contextItems = items["contextItems"];
         
-        var sendRequest = function(status) {
+        var sendRequest = function(titleBox) {
+            var oldTitle = titleBox.attr("id");
+            if (oldTitle != null) {
+                delete contextItems[oldTitle];
+            }
+            storage.set({"contextItems":contextItems});
+            var request = {
+                "status": "update",
+                "oldTitle": oldTitle
+            };
+            chrome.runtime.sendMessage(request);
         };
         
         var setOption = function() {
             $(this).attr("disabled", true);
             var titleBox = $(this).parent().prev().children("input:first");
-            var oldTitle = titleBox.attr("id");
             var newTitle = titleBox.val();
             var newVal = $(this).prev().val();
-            titleBox.attr("id", newTitle);
-            if (oldTitle != null) {
-                delete contextItems[oldTitle];
-            }
             contextItems[newTitle] = newVal;
-            storage.set({"contextItems":contextItems});
-            var request = {
-                "status": "update",
-                "oldTitle": oldTitle
-            };
-            chrome.runtime.sendMessage(request);
+            sendRequest(titleBox);
+            titleBox.attr("id", newTitle);
         };
         
         var deleteItem = function() {
             var dd = $(this).parent();
-            var oldTitle = dd.prev().children("input:first").attr("id");
-            if (oldTitle != null) {
-                delete contextItems[oldTitle];
-            }
-            storage.set({"contextItems":contextItems});
-            var request = {
-                "status": "update",
-                "oldTitle": oldTitle
-            };
-            chrome.runtime.sendMessage(request);
+            var titleBox = dd.prev().children("input:first");
+            sendRequest(titleBox);
             dd.parent().remove();
         };
         
