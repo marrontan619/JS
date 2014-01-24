@@ -35,8 +35,8 @@ $(function() {
             dd.parent().remove();
         };
         
-        var dl = $("dl");
         var createItemSet = function(key, val) {
+            var dl = $("dl");
             var itemSetDiv = $("<div/>").addClass("itemSet");
             
             var dt = $("<dt/>");
