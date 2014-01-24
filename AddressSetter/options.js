@@ -2,7 +2,7 @@
 $(function() {
     var UPDATE_REQUEST = "update_context_menu";
     var storage = chrome.storage.local;
-    storage.get(function(items) {
+    storage.get("contextItems", function(items) {
         var contextItems = items["contextItems"];
         
         var sendRequest = function(titleBox) {

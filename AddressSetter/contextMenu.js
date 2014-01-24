@@ -23,7 +23,7 @@ var CreateProperties = function (id) {
 };
 
 var createContextMenu = function() {
-    storage.get(function(items) {
+    storage.get("contextItems", function(items) {
         for(var key in items["contextItems"]) {
             chrome.contextMenus.create(new CreateProperties(key));
         }
@@ -31,7 +31,7 @@ var createContextMenu = function() {
 };
 
 chrome.runtime.onInstalled.addListener(function() {
-    storage.get(function(items) {
+    storage.get("contextItems", function(items) {
         if(items["contextItems"] == null) {
             var initialItems = {
                 "contextItems": {
